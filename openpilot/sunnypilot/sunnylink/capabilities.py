@@ -10,6 +10,7 @@ from openpilot.cereal import custom, messaging
 from opendbc.car.structs import car
 from opendbc.car.hyundai.values import CAR as HYUNDAI_CAR, UNSUPPORTED_LONGITUDINAL_CAR
 from opendbc.car.subaru.values import CAR as SUBARU_CAR, SubaruFlags
+from opendbc.sunnypilot.car.chrysler.values_ext import JEEPS as CHRYSLER_JEEPS
 from opendbc.sunnypilot.car.tesla.values import TeslaFlagsSP
 from openpilot.common.params import Params
 from openpilot.common.swaglog import cloudlog
@@ -42,6 +43,7 @@ CAPABILITY_FIELDS = (
   "device_type",
   "subaru_has_sng",
   "hyundai_alpha_long_available",
+  "jeep_has_brake_hold",
 )
 
 CAPABILITY_LABELS: dict[str, str] = {
@@ -64,6 +66,7 @@ CAPABILITY_LABELS: dict[str, str] = {
   "device_type": "Device type",
   "subaru_has_sng": "Subaru Stop-and-Go available",
   "hyundai_alpha_long_available": "Hyundai Alpha Longitudinal available",
+  "jeep_has_brake_hold": "Jeep Brake Hold available",
 }
 
 # Explicit defaults for non-boolean capability fields
@@ -109,6 +112,12 @@ def _resolve_brand_capabilities(caps: dict, bundle_platform: str, CP) -> None:
     elif CP is not None:
       caps["subaru_has_sng"] = not bool(CP.flags & (SubaruFlags.GLOBAL_GEN2 | SubaruFlags.HYBRID))
       caps["has_stop_and_go"] = caps["subaru_has_sng"]
+
+  elif brand == "chrysler":
+    if bundle_platform:
+      caps["jeep_has_brake_hold"] = bundle_platform in CHRYSLER_JEEPS
+    elif CP is not None:
+      caps["jeep_has_brake_hold"] = CP.carFingerprint in CHRYSLER_JEEPS
 
 
 def generate_capabilities(params: Params | None = None) -> dict:

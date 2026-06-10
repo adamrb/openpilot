@@ -6,6 +6,18 @@ icon: vehicle
 order: 99
 kind: vehicle
 sections:
+- id: chrysler
+  title: Chrysler / Dodge / Jeep / Ram Settings
+  description: ''
+  items:
+  - key: JeepBrakeHold
+    widget: toggle
+    title: Jeep Brake Hold (Alpha)
+    enablement:
+    - $ref: '#/macros/offroad'
+    - type: capability
+      field: jeep_has_brake_hold
+      equals: true
 - id: hyundai
   title: Hyundai / Kia / Genesis Settings
   description: ''

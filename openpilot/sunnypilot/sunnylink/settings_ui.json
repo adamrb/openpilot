@@ -2070,6 +2070,27 @@
     }
   ],
   "vehicle_settings": {
+    "chrysler": {
+      "title": "Chrysler / Dodge / Jeep / Ram Settings",
+      "description": "",
+      "items": [
+        {
+          "key": "JeepBrakeHold",
+          "widget": "toggle",
+          "title": "Jeep Brake Hold (Alpha)",
+          "enablement": [
+            {
+              "type": "offroad_only"
+            },
+            {
+              "type": "capability",
+              "field": "jeep_has_brake_hold",
+              "equals": true
+            }
+          ]
+        }
+      ]
+    },
     "hyundai": {
       "title": "Hyundai / Kia / Genesis Settings",
       "description": "",

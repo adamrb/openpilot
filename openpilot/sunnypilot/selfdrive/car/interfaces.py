@@ -109,6 +109,11 @@ def setup_interfaces(CI: CarInterfaceBase, params: Params = None) -> None:
 def initialize_params(params) -> list[dict[str, Any]]:
   keys: list = []
 
+  # chrysler
+  keys.extend([
+    "JeepBrakeHold",
+  ])
+
   # hyundai
   keys.extend([
     "HyundaiLongitudinalTuning",
